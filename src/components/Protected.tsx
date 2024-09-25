@@ -2,7 +2,7 @@
  * Protected component to check if the user is authenticated or not and then render the component
  * @author Yousuf Kalim
  */
-import React, { useEffect, ReactNode, ReactElement } from 'react';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Auth, Config } from '../Store';
 import Loader from './Loader';
@@ -34,7 +34,7 @@ function Protected({
       isAuthenticated()
         .then((res: any) => {
           if (res) {
-            if (roles?.length && roles.includes(res.role)) {
+            if (roles?.length && roles.some(item => res.roles.includes(item))) {
               // If the user is authenticated then set the auth state to true
               return setAuth(true);
             } else if (!roles?.length) {
